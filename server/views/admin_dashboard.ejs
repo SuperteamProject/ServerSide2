@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Image Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <div>
+
+  
+  </div>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <form action="/api/v1/upload-product"  method="POST"> 
+        <h1> Admin Dashboard</h1>
+          <div class="form-group">
+            <label for="image">Input Image</label>
+            <input type="text" id="image" name="image" class="form-control" placeholder="Enter image" required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text" id="name" name="name" class="form-control" placeholder="Enter product name" required/>
+          </div>
+
+          <div class="form-group">
+          <label for="price" >Price</label>
+            <input type="text" id="price" name="price" class="form-control" placeholder="Enter product price" required/>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            Post Data
+          </button>
+        </form>
+        
+    </div>
+  </div>
+  
+    <!-- <form action="/api/v1/upload-product" enctype="multipart/form-data" method="POST">
+        <div class="form-group">
+          
+          <input type="text" class="form-control" placeholder="image" aria-label="Image">
+          <input type="text" class="form-control" placeholder="name" aria-label="Name">
+          <input type="text" class="form-control" placeholder="price" aria-label="Price">
+          
+
+          <!-- <input type="text" class="form-control-file" name="uploaded_file">
+          <input type="text" class="form-control" placeholder="Product Name" name="name"> -->
+          <!-- <input type="text" class="form-control" placeholder="Price" name="price"> -->
+          <!-- <Button type="submit" class="btn btn-primary">  Post Data  </Button>   -->
+        <!-- </div>
+      </form> --> 
+
+      
+</body>
+</html>
