@@ -14,4 +14,5 @@ app.use(express.urlencoded({extended: false}))
 app.use(router);
 
 
-app.listen(PORT,()=>{console.log("server harus nyala!");})
+// app.listen(PORT,()=>{console.log("server harus nyala!");})
+module.exports = app;

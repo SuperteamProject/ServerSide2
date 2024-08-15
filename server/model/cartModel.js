@@ -1,8 +1,14 @@
 const knexfile = require('../knexfile');
 const knex = require('knex')(knexfile.development);
 
-const addProductToCart=(product_id)=>{
-    return knex('cart').insert({product_id});
+const addProductToCart=(user_id,product_id,quantity)=>{
+    return knex('cart').insert({user_id,product_id,quantity});
 }
 
-module.exports={addProductToCart}
+const getProductToCartById=(user_id)=>{
+    return knex('cart')
+    .join('product', 'cart.product_id', 'product.id')
+    .select('product.name', 'product.price','cart.quantity');
+}
+
+module.exports={addProductToCart,getProductToCartById}
