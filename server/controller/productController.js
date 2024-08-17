@@ -49,7 +49,7 @@ exports.updateProduct = async(req,res) =>{
         if (update_product) {
             res.status(200).json(update_product);
         } else {
-              res.status(404).json({ error: 'Product not found' });
+            res.status(404).json({ error: 'Product not found' });
         }
     } catch (error) {
         res.status(500).json({ error: 'Failed to update product' });
@@ -59,14 +59,16 @@ exports.updateProduct = async(req,res) =>{
 
 exports.deleteProduct = async(req,res)=>{
     try{
-    const deleted = await product.deleteProduct(req.params.id);
-    if (deleted) {
-        res.status(200).json({ message: 'Product deleted' });
-      } else {
-        res.status(404).json({ message: 'Product not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+        const deleted = await product.deleteProduct(req.params.id);
+        if (deleted) {
+            res.status(200).json({ message: 'Product deleted' });
+        } 
+        else 
+        {
+            res.status(404).json({ message: 'Product not found' });
+        }
+        } catch (error) {
+        res.status(500).json({ error: error.message });
+        }
 }
 

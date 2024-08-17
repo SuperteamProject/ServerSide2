@@ -15,3 +15,4 @@ app.use(router);
 
 
 app.listen(PORT,()=>{console.log("server harus nyala!");})
+module.exports = app;
