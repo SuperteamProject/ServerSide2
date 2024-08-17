@@ -14,17 +14,17 @@ const postProduct = async (product) =>{
     
 }
 
-const getAllProduct = async()=>{
+// model/productModel.js
 
-    try{
-       const dbKnex = await knex('product').select('*');  
-       return dbKnex;
-       //    console.log(dbKnex);
-    }catch(err){
-        console.log(err,"ini Catch");
+const getAllProduct = async () => {
+    try {
+        const products = await knex('product').select('*');
+        return products; // Pastikan ini adalah array
+    } catch (error) {
+        throw new Error('Error fetching products from database');
     }
-    
-}
+};
+
 
 const updateProduct =(id,products)=>{
     return knex('product').where({id}).update(products).returning('*');

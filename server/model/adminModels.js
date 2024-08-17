@@ -1,6 +1,8 @@
 const knexfile = require('../knexfile');
 const knex = require('knex')(knexfile.development);
 // const db = require('../connection/db.js')
+const bcrypt = require('bcrypt');
+
 const registerAdmin=async(admin) =>{
     
     try{
@@ -27,7 +29,20 @@ const loginAdmin =async(admin)=>{
 }
 
 const findAdminByEmail = async (email)=>{
-    return knex('admin_account').select('*').where({email:email});
+    return await knex('admin_account').where({ email }).first();
+}
+const findAdminById = async (id)=>{
+    return await knex('admin_account').where({ id }).first();
 }
 
-module.exports = {registerAdmin,loginAdmin,findAdminByEmail};
+const checkPassword = async (password, hash) => {
+    try {
+        const isMatch = await bcrypt.compare(password, hash);
+        return isMatch;
+    } catch (err) {
+        console.error(err);
+        throw new Error('Password comparison error');
+    }
+}
+
+module.exports = {registerAdmin,loginAdmin,findAdminByEmail,checkPassword, findAdminById};

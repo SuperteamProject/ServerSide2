@@ -8,11 +8,11 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: 'localhost',
+      host: "localhost",
       port: 5432,
-      user: 'postgres',
-      password: 'root',
-      database: 'challenge-gold'
+      database: "Superteam",
+      user: "postgres",
+      password: "localhost"
     }
   },
 

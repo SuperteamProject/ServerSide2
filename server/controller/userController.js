@@ -1,61 +1,52 @@
 const {registerUser,loginUser, findUserByEmail} = require("../model/userModel");
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const {getAllProduct} = require("../model/productModel");
+const passport = require('passport');
 
 
 exports.registerUser = async (req,res)=>{
-    try{   
-      const{firstname,lastname,email,password} =req.body;
-      const newUser={
+
+  try {
+      const { firstname, lastname, email , password } = req.body;
+      console.log(email);
+      
+      const existingUser = await findUserByEmail(email);
+      if (existingUser) {
+          return res.status(400).json({ error: 'Email sudah terdaftar' });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const newUser = {
           firstname,
           lastname,
           email,
-          password
-      }
-      console.log(newUser,"ini new USer");
-      const newregisterUser = await registerUser(newUser);
-      console.log(newregisterUser);
-      // console.log(newUser ," => Di COntroller ");
-      res.render('home_user.ejs');
-  }catch(err){
-      console.log(err);
-  }
+          password: hashedPassword
+      };
+
+      await registerUser(newUser);
+      console.log(newUser, " => Di Controller");
+
+      // res.status(201).json({ message: 'User berhasil terdaftar', data: newUser });
+      res.redirect('/api/v1/user-register')
+      
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 }
 
-exports.loginUser = async (req,res)=>{ 
-    
-    try {
-      const { email, password } = req.body;
-      const newUser={
-        email,
-        password
-    }
-    // console.log(newUser, "=> ini login User");
+exports.loginUser = (req, res, next) => {
+  passport.authenticate('user-local', {
+      successRedirect: '/api/v1/home',
+      failureRedirect: '/api/v1/user-register',// Jika Anda ingin menggunakan flash messages
+      session: true        // Pastikan hanya menyimpan sesi jika login berhasil
+  })(req, res, next);
+}
 
-     
-    const users = await findUserByEmail(email);
-      console.log(users, "==> cek user by email");
-      
-      const getProduct = await getAllProduct();
-      
-      console.log(getProduct, "==> cek fetch product berhasil");
-
-     if(users){
-      const validatePassword = users[0].password;
-      console.log(validatePassword);
-      if(validatePassword === password){
-        console.log("login successfully");
-        //res render
-        res.render('user_dashboard', {getProduct});
-      }else{
-        console.log("email or password invalid");
-      }
-     }else{
-      console.log("account does not exist");
-     }
-      
-    }catch(err){
-      console.log(err);
-    }
+exports.logoutUser = (req, res) => {
+  req.logout(err => {
+      if (err) return res.status(500).json({ error: 'Internal Server Error' });
+      res.redirect('/api/v1/user-login');
+  });
 }
