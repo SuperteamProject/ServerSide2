@@ -20,5 +20,9 @@ describe('Cart API', () => {
     expect(res.body[0]).toHaveProperty('quantity');
   });
 
-  
+  it('delete cart', async () =>{
+    const response = await request(app)
+      .delete("/api/v1/5/delete-cart")      
+    expect(response.statusCode).toBe(201);
+  })
 });

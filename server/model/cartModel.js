@@ -11,4 +11,7 @@ const getProductToCartById=(user_id)=>{
     .select('product.name', 'product.price','cart.quantity');
 }
 
-module.exports={addProductToCart,getProductToCartById}
+const deleteCart =(id)=>{
+    return knex('cart').where({id}).del();
+}
+module.exports={addProductToCart,getProductToCartById,deleteCart}

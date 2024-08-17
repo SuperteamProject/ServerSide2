@@ -36,4 +36,16 @@ exports.getProductToCartById = async(req,res)=>{
     }
 }
 
-
+exports.deleteCart = async(req,res)=>{
+    try{
+        const deleted = await cartModel.deleteCart(req.params.id);
+        if(deleted){
+            res.status(201).json({message: 'cart deleted'})
+        }
+        else{
+            res.status(404).json({message:"cart not found"});
+        }
+    }catch(err){
+        res.status(500).json({err:err.message});
+    }
+}
