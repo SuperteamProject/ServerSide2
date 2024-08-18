@@ -4,8 +4,11 @@ const { registerAdmin, loginAdmin, logoutAdmin } = require("../controller/adminC
 const { postProduct, getAllProduct, updateProduct, deleteProduct } = require("../controller/productController");
 const { registerUser, loginUser, logoutUser } = require("../controller/userController.js");
 
-const upload = require('../middleware/multer.js');
 
+const{addProductToCart, getProductToCartById, deleteCart} = require ("../controller/cartController.js");
+const { PaymentMethodController } = require('../controller/paymentMethodController.js');
+
+const upload = require('../middleware/multer.js');
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -33,6 +36,18 @@ router.put("/api/v1/:id/update-product",upload.single('image'), updateProduct);
 router.delete("/api/v1/:id/delete-product", deleteProduct);
 
 // User routes
+//cart
+router.post("/api/v1/add-to-cart", addProductToCart);
+router.get("/api/v1/get-product-to-cart/:user_id",getProductToCartById);
+router.delete("/api/v1/:id/delete-cart",deleteCart);
+router.get("/api/v1", (req,res) =>{
+    res.status(200).json({messaeg:" test berhasil"});
+})
+
+//payment method
+router.post("/api/v1/payment-method", PaymentMethodController);
+//user
+//Signup User
 router.post("/api/v1/user-register", registerUser);
 router.get("/api/v1/user-register", (req,res) => {res.render('user-register')});
 router.post("/api/v1/user-login", loginUser);

@@ -7,6 +7,7 @@ exports.up = function(knex) {
         table.increments('id').primary();
         table.integer('user_id').unsigned().notNullable().references('id').inTable('user_account').onDelete('CASCADE').onUpdate('CASCADE');	
         table.integer('product_id').unsigned().notNullable().references('id').inTable('product').onDelete('CASCADE').onUpdate('CASCADE')
+        table.integer('quantity').notNullable();
         table.timestamps(true, true); // -> akan mengenerate created_at sama updated_at
     })								
 };
@@ -16,5 +17,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.dropTable('admin_account');
+  return knex.schema.dropTable('cart');
 };

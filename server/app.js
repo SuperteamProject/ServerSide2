@@ -50,7 +50,5 @@ function errorHandler(err, req, res, next) {
     res.status(errorStatus).json({ "message": messageReturn });
 }
 
-app.use(errorHandler);
-
-app.listen(PORT, () => {  });
+app.listen(PORT,()=>{console.log("server harus nyala!");})
 module.exports = app;
