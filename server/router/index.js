@@ -38,8 +38,10 @@ router.get("/api/v1/user-register", (req,res) => {res.render('user-register')});
 router.post("/api/v1/user-login", loginUser);
 router.get("/api/v1/user-login", (req,res) => {res.render('user-login')});
 
-router.get('/api/v1/home', ensureAuthenticated, (req, res) => {
-    const products = getAllProduct();
+router.get('/api/v1/home', ensureAuthenticated, async (req, res) => {
+    const products = await getAllProduct();
+    console.log(products);
+    
     res.render('home-user', { user: req.user, products });
 });
 router.get("/api/v1/user-logout", logoutUser);

@@ -52,4 +52,5 @@ function errorHandler(err, req, res, next) {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => { console.log("server harus nyala!"); });
+app.listen(PORT, () => {  });
+module.exports = app;
