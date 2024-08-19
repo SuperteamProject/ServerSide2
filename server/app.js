@@ -9,7 +9,12 @@ const knexfile = require('./knexfile');
 const knex = require('knex')(knexfile.development);
 
 const app = express();
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerJson = require('./openapi.json');
+
 const PORT = process.env.PORT || 3000;
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -50,5 +55,11 @@ function errorHandler(err, req, res, next) {
     res.status(errorStatus).json({ "message": messageReturn });
 }
 
+
+app.use('/documents', swaggerUi.serve, swaggerUi.setup(swaggerJson));
+
+
+
 app.listen(PORT,"0.0.0.0",()=>{console.log("server harus nyala!");})
+
 module.exports = app;

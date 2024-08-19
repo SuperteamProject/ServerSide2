@@ -1,0 +1,406 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Superteam Project",
+    "description": "This is Binar Platinum Project \nTech Stack:\n  -Frontend = ReactJS and CSS\n  -Backend: NodeJS,Express,cloudinary\n  -Testing: Jest and Postman",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api/v1/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "userRegister",
+      "description": "Operation about users"
+    },
+    {
+      "name": "admin",
+      "description": "Access to Petstore admin"
+    },
+    {
+      "name": "product",
+      "description": "Operations about product"
+    }
+  ],
+  "paths": {
+    "/user-register": {
+      "post": {
+        "tags": [
+          "userRegister"
+        ],
+        "summary": "register user",
+        "requestBody": {
+          "description": "register user account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reqbodyUser"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resUserRegister"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email sudah terdaftar"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/upload-product": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "upload product",
+        "requestBody": {
+          "description": "upload product",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reqbodyProduct"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Upload image",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resUploadProduct"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Semua bidang wajib diisi"
+          },
+          "500": {
+            "description": "Error image upload"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "reqbodyUser": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "brock"
+          },
+          "email": {
+            "type": "string",
+            "example": "br@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "54321"
+          }
+        }
+      },
+      "resUserRegister": {
+        "required": [
+          "message",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "enum": [
+              "available",
+              "pending",
+              "sold"
+            ]
+          },
+          "data": {
+            "$ref": "#/components/schemas/dataResUserRegister"
+          }
+        }
+      },
+      "reqbodyProduct": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "format": "binary",
+            "example": "https://picsum.photos/200/300"
+          },
+          "name": {
+            "type": "string",
+            "example": "pepperoni"
+          },
+          "price": {
+            "type": "string",
+            "example": "Rp15.000"
+          }
+        }
+      },
+      "resUploadProduct": {
+        "required": [
+          "success",
+          "message",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "upload image"
+          },
+          "data": {
+            "$ref": "#/components/schemas/dataResUploadProduct"
+          }
+        }
+      },
+      "dataResUploadProduct": {
+        "required": [
+          "asset_id",
+          "public_id",
+          "version",
+          "version_id",
+          "signature",
+          "width",
+          "height",
+          "format",
+          "resource_type",
+          "created_at",
+          "tags",
+          "bytes",
+          "type",
+          "etag",
+          "placeholder",
+          "url",
+          "secure_url",
+          "asset_folder",
+          "display_name",
+          "original_filename",
+          "api_key"
+        ],
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "example": "15f02f9e04226f2084eb4d44ddeb4b24"
+          },
+          "public_id": {
+            "type": "string",
+            "example": "2024-08-19-22:08:15-download (1).png"
+          },
+          "version": {
+            "type": "integer",
+            "example": 1724082236
+          },
+          "version_id": {
+            "type": "string",
+            "example": "64b2d7942b03d6de9e473c89a3320ad7"
+          },
+          "signature": {
+            "type": "string",
+            "example": "827ff0f60f5b63109c641566759b77ff149264a1"
+          },
+          "width": {
+            "type": "integer",
+            "example": 300
+          },
+          "height": {
+            "type": "integer",
+            "example": 168
+          },
+          "format": {
+            "type": "string",
+            "example": "png"
+          },
+          "resource_type": {
+            "type": "string",
+            "example": "image"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2024-08-19T15:43:56Z"
+          },
+          "tags": {
+            "type": "string",
+            "example": "[]"
+          },
+          "bytes": {
+            "type": "integer",
+            "example": 2308
+          },
+          "type": {
+            "type": "string",
+            "example": "upload"
+          },
+          "etag": {
+            "type": "string",
+            "example": "307da94d14fb0108bf378ea07c8d807e"
+          },
+          "placeholder": {
+            "type": "boolean",
+            "example": false
+          },
+          "url": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/dlce8cbxz/image/upload/v1724082236/2024-08-19-22:08:15-download%20%281%29.png.png"
+          },
+          "secure_url": {
+            "type": "string",
+            "example": "https://res.cloudinary.com/dlce8cbxz/image/upload/v1724082236/2024-08-19-22:08:15-download%20%281%29.png.png"
+          },
+          "asset_folder": {
+            "type": "string",
+            "example": " "
+          },
+          "display_name": {
+            "type": "string",
+            "example": "2024-08-19-22:08:15-download (1).png"
+          },
+          "original_filename": {
+            "type": "string",
+            "example": "1724082234149-download (1)"
+          },
+          "api_key": {
+            "type": "string",
+            "example": "842862936163878"
+          }
+        }
+      },
+      "dataResUserRegister": {
+        "required": [
+          "firstname",
+          "lastname",
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string",
+            "example": "alwy"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "ghazaly"
+          },
+          "email": {
+            "type": "string",
+            "example": "ag@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "56789"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      }
+    },
+    "requestBodies": {
+      "Pet": {
+        "description": "Pet object that needs to be added to the store",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Pet"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/Pet"
+            }
+          }
+        }
+      },
+      "UserArray": {
+        "description": "List of user object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
