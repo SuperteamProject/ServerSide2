@@ -23,9 +23,11 @@ router.get('/', (req, res) => {
 
 // Admin routes
 router.post("/api/v1/admin-register", registerAdmin);
+router.get("/api/v1/admin-register",(req,res) => res.render('signup_admin'));
 router.post("/api/v1/admin-login", loginAdmin);
+router.get("/api/v1/admin-login", (req,res) => res.render('signin_admin'));
 router.get("/api/v1/admin-logout", logoutAdmin);
-router.get('/dashboard', ensureAuthenticated, (req, res) => {
+router.get('/api/v1/dashboard', ensureAuthenticated, (req, res) => {
     res.render('dashboard', { user: req.user });
 });
 
