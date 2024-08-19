@@ -27,8 +27,8 @@ exports.registerUser = async (req,res)=>{
       await registerUser(newUser);
       console.log(newUser, " => Di Controller");
 
-      // res.status(201).json({ message: 'User berhasil terdaftar', data: newUser });
-      res.redirect('/api/v1/user-register')
+      res.status(201).json({ message: 'User berhasil terdaftar', data: newUser });
+      // res.redirect('/api/v1/user-register')
       
     } catch (err) {
         console.log(err);
