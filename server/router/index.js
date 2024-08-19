@@ -6,7 +6,6 @@ const { registerUser, loginUser, logoutUser } = require("../controller/userContr
 
 
 const{addProductToCart, getProductToCartById, deleteCart} = require ("../controller/cartController.js");
-const { PaymentMethodController } = require('../controller/paymentMethodController.js');
 
 const upload = require('../middleware/multer.js');
 
@@ -46,8 +45,6 @@ router.get("/api/v1", (req,res) =>{
     res.status(200).json({messaeg:" test berhasil"});
 })
 
-//payment method
-router.post("/api/v1/payment-method", PaymentMethodController);
 //user
 //Signup User
 router.post("/api/v1/user-register", registerUser);
