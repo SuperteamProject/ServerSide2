@@ -10,6 +10,8 @@ const knex = require('knex')(knexfile.development);
 
 const app = express();
 const PORT = 5000;
+const swaggerUi = require('swagger-ui-express');
+const swaggerJson = require('./openapi.json');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -49,6 +51,8 @@ function errorHandler(err, req, res, next) {
     }
     res.status(errorStatus).json({ "message": messageReturn });
 }
+
+app.use('/documents', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 app.listen(PORT,()=>{console.log("server harus nyala!");})
 module.exports = app;
