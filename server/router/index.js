@@ -4,7 +4,6 @@ const {registerAdmin,loginAdmin} = require("../controller/adminController.js");
 const {postProduct,getAllProduct,updateProduct,deleteProduct} = require("../controller/productController");
 const {registerUser,loginUser} = require("../controller/userController.js");
 const{addProductToCart, getProductToCartById, deleteCart} = require ("../controller/cartController.js");
-const { PaymentMethodController } = require('../controller/paymentMethodController.js');
 
 
 router.get('/',  (req, res) => {
@@ -28,8 +27,6 @@ router.get("/api/v1", (req,res) =>{
     res.status(200).json({messaeg:" test berhasil"});
 })
 
-//payment method
-router.post("/api/v1/payment-method", PaymentMethodController);
 //user
 //Signup User
 router.post("/api/v1/user-register", registerUser);
