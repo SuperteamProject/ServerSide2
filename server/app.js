@@ -9,7 +9,7 @@ const knexfile = require('./knexfile');
 const knex = require('knex')(knexfile.development);
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -50,5 +50,5 @@ function errorHandler(err, req, res, next) {
     res.status(errorStatus).json({ "message": messageReturn });
 }
 
-app.listen(PORT,()=>{console.log("server harus nyala!");})
+app.listen(PORT,"0.0.0.0",()=>{console.log("server harus nyala!");})
 module.exports = app;
