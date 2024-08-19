@@ -27,8 +27,8 @@ exports.registerUser = async (req,res)=>{
       await registerUser(newUser);
       console.log(newUser, " => Di Controller");
 
-      // res.status(201).json({ message: 'User berhasil terdaftar', data: newUser });
-      res.redirect('/api/v1/user-register')
+      res.status(201).json({ message: 'User berhasil terdaftar', data: newUser });
+      // res.redirect('/api/v1/user-register')
       
     } catch (err) {
         console.log(err);
@@ -37,11 +37,16 @@ exports.registerUser = async (req,res)=>{
 }
 
 exports.loginUser = (req, res, next) => {
-  passport.authenticate('user-local', {
+  passport.authenticate('user-local',
+    
+  {
       successRedirect: '/api/v1/home',
-      failureRedirect: '/api/v1/user-register',// Jika Anda ingin menggunakan flash messages
-      session: true        // Pastikan hanya menyimpan sesi jika login berhasil
-  })(req, res, next);
+      failureRedirect: '/api/v1/user-login',// Jika Anda ingin menggunakan flash messages
+      session: true, // Pastikan hanya menyimpan sesi jika login berhasil
+      failureMessage: true,
+             
+  }),(req, res, next) =>{    
+  };
 }
 
 exports.logoutUser = (req, res) => {

@@ -13,7 +13,7 @@ describe('User Controller', () => {
             .send({
                 firstname: 'John',
                 lastname: 'Doe',
-                email: 'john.doe@examplee.com',
+                email: 'john.doe@exampleee.com',
                 password: 'password123'
             });
 
